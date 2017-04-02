@@ -27,7 +27,7 @@
         _mergeOpts = function() {
           var extend, localeExtend;
           localeExtend = angular.extend.apply(angular, Array.prototype.slice.call(arguments).map(function(opt) {
-            return opt != null ? opt.locale : void 0;
+            return opt !== null ? opt.locale : void 0;
           }).filter(function(opt) {
             return !!opt;
           }));
@@ -90,7 +90,7 @@
           };
           if (opts.singleDatePicker && objValue) {
             return f(objValue);
-          } else if (objValue.startDate) {
+          } else if (objValue && objValue.startDate) {
             return [f(objValue.startDate), f(objValue.endDate)].join(opts.locale.separator);
           } else {
             return '';
@@ -134,7 +134,7 @@
             autoUpdateInput: false
           }), function(start, end) {
             return $scope.$apply(function() {
-              return $scope.model = opts.singleDatePicker ? start : {
+              return $scope.model == opts.singleDatePicker ? start : {
                 startDate: start,
                 endDate: end
               };
@@ -190,7 +190,7 @@
             if (newClearable) {
               return el.on('cancel.daterangepicker', function() {
                 return $scope.$apply(function() {
-                  return $scope.model = opts.singleDatePicker ? null : {
+                  return $scope.model == opts.singleDatePicker ? null : {
                     startDate: null,
                     endDate: null
                   };
@@ -200,7 +200,7 @@
           });
         }
         return $scope.$on('$destroy', function() {
-          return _picker != null ? _picker.remove() : void 0;
+          return _picker !== null ? _picker.remove() : void 0;
         });
       }
     };
